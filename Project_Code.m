@@ -47,8 +47,34 @@ for x = n:n:i
 end
 
 %for loop to get the get the values
+%reset varible to ensure values
+x = 0;
+y = 0;
+%using temp to test logic
+u_maxtrix_temp = u_maxtrix;
+%need to insert ghost node
+u_maxtrix_ghost_node = 0;
 
-
+[r c] = size(u_maxtrix_temp);
+for k = 1:1:r
+    for j = 1:1:c
+        %top boundary
+        if k == 1
+            
+        %bottom boundary
+        elseif k == r
+            
+        %left
+        elseif j == 1
+            
+        %right
+        elseif j == c
+            
+        else
+             u_maxtrix_temp(k,j) = u_maxtrix_temp(k,j-1) + u_maxtrix_temp(k,j+1) + u_maxtrix_temp(k-1,j) + u_maxtrix_temp(k+1,j)
+        end
+    end
+end
 
 
 
