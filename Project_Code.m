@@ -120,18 +120,24 @@ i = 2*pi;
 %start node
 node_start = 5;
 %ending node
-node_end = 5;
+node_end = 400;
 %increment
 node_increment = 1;
 
 count_temp = 1;
-matrix_holder = cell(1,3);
-matrix_holder_after = cell(1,3);
+matrix_holder = cell(1,node_end-4);
+matrix_holder_after = cell(1,node_end-4);
 length_omega = length(1:0.01:2);
+
 counter_omega = 1;
-omega_tracker = zeros(1,length_omega);
+omega_tracker = zeros(node_start-node_end+1,length_omega);
+omega_matrix_holder = cell(1,node_end-4);
+omega_and_matrix_holder = cell(1,node_end-4);
+omega_and_matrix_counter = 0;
+
 %initlize the first knows
 for nodes_n = node_start:node_increment:node_end
+    counter_omega = 1;
     for omega_w = 1:0.01:2
         %step size
         n = i/nodes_n;
@@ -182,11 +188,17 @@ for nodes_n = node_start:node_increment:node_end
             interative = interative +1;
            
         end
-        omega_tracker(counter_omega) = interative;
+        %omega tracker
+        omega_tracker(counter_omega,nodes_n-4) = interative;
+  
+        %matrix tracket
+        omega_matrix_holder{counter_omega,nodes_n-4} = u_maxtrix;
         counter_omega = counter_omega + 1;
+        
+        
         fprintf('We went thorugh this many round for Successive Over-Relaxation Method %f\n', interative)
     end
-    matrix_holder_after{count_temp} = u_maxtrix;
+    matrix_holder_after{count_temp} = {omega_matrix_holder(:,1) omega_tracker(:,1)};
     count_temp = count_temp + 1;
 end
 
